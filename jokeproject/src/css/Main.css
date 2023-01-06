@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(148, 0, 0);
+    padding: 0 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.container {
+    width: 35%;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.tag-btn{
+    margin: 0 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    padding: 5px;
+}
+.tag-btn:hover {
+    background-color: rgb(156, 53, 53);
+    border-radius: 10px;
+}
+.tag-btn:focus {
+    outline: none;
+    border: none;
+}
+
+.tag-name {
+    color: white;
+}
+
+.quote-container {
+    padding: 0 10px;
+}
+
+.quote {
+    font-size: 1.8rem;
+    font-family: 'Dancing Script', cursive;
+}
