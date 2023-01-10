@@ -1,13 +1,159 @@
-body {
+html {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 40%;
+  min-height: 50vh;
+  height: auto;
+  border: 1px solid black;
+  position: relative;
+}
+
+.cont {
+  padding: 5px;
+}
+
+.course-overview p {
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 10px 0;
+  padding: 5px;
+}
+
+.btns button {
+  border: none;
+  padding: 3px;
+  margin: 0 8px 0 0;
+}
+
+.category {
+  color: white;
+  background-color: red;
+}
+.lessons {
+  color: black;
+  background-color: rgb(255, 255, 0);
+}
+.edit-btn {
+  color: white;
+  background-color: rgb(116, 30, 255);
+  cursor: pointer;
+}
+
+.lesson-cont {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(216, 216, 216);
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.lesson-cont p {
+  margin: 0 ;
+}
+
+.lesson-cont button {
+  background-color: rgb(211, 0, 0);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn {
+  text-align: center;
+}
+.btn button {
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(0, 102, 255);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.not-avail {
+  text-align: center;
+  color: rgb(182, 182, 182);
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.course-title, .course-lesson{
+  width: 100%;
+}
+.course-title input, .course-lesson input {
+  width: 98%;
+  padding: 4px;
+  font-size: 1rem;
+}
+
+.course-cat, .lesson-cat {
+  width: 100%;
+}
+
+.select-cat {
+  width: 100%;
+  padding: 6px;
+}
+
+.add-lessons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  color: white;
+  background-color: black;
+}
+
+.add-lessons p {
+  margin: 0;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  padding: 6px;
+}
+
+.footer button {
+  margin: 0 6px 0 0;
+  padding: 5px;
+  color: white;
+  background-color: rgb(0, 102, 255);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  padding: 5px;
+  color: white;
+  background-color: rgb(0, 102, 255);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
