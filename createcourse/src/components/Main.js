@@ -13,11 +13,18 @@ function Main() {
           <p>Course Overview</p>
         </div>
         {isShowBuilder ? (
-          <AddCourse course={course} onCancel={() => setIsShowBuilder(false)} />
+          <AddCourse
+            course={course}
+            onCancel={() => setIsShowBuilder(false)}
+            onCreate={(c) => {
+              setCourse(c);
+              setIsShowBuilder(false);
+            }}
+          />
         ) : (
           <CourseDetails
             course={course}
-            onCreate={() => setIsShowBuilder(true)}
+            onAdd={() => setIsShowBuilder(true)}
           />
         )}
       </div>
