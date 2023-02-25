@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
@@ -15,24 +15,23 @@ export function reducer(state, action) {
       return [
         {
           id: state.length + 1,
-          task: action.task,
-          urgent: action.urgent,
+          ...action.payload,
         },
         ...state,
       ];
 
     case "DELETE_TASK":
-      let finalState = state.filter((el) => el.id !== action.id);
-      return finalState;
+      state = state.filter((el) => el.id !== action.id);
+      return state;
 
     case "EDIT_TASK":
-      let task = state.filter((el) => el.id !== action.id);
+      state = state.filter((el) => el.id !== action.payload.id);
+
       let taskObj = {
-        id: action.id,
-        task: action.task,
-        urgent: action.task,
+        ...action.payload,
       };
-      return [...task, taskObj];
+
+      return [taskObj, ...state];
 
     default:
       break;
@@ -42,42 +41,107 @@ export function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [task, setTask] = useState("");
+  const [urgent, setUrgent] = useState(false);
+
+  const [edit, setEdit] = useState(false);
+  const [id, setId] = useState(0);
+
+  const handleEnter = (e) => {
+    e.preventDefault();
+    if (edit) {
+      dispatch({
+        type: "EDIT_TASK",
+        payload: {
+          id,
+          task,
+          urgent,
+        },
+      });
+      setEdit(false);
+    } else {
+      dispatch({
+        type: "ADD_TASK",
+        payload: {
+          task,
+          urgent,
+        },
+      });
+    }
+    setTask("");
+    setUrgent(false);
+  };
+
+  const deleteTask = (id) => {
+    dispatch({
+      type: "DELETE_TASK",
+      id,
+    });
+  };
+
+  const onEdit = (id, task, urgent) => {
+    setEdit(true);
+    setTask(task);
+    setUrgent(urgent);
+    setId(id);
+  };
+
   return (
     <div className="container my-5">
       <h2 className="mb-2">TODO</h2>
-      <form>
+      <form onSubmit={handleEnter} className="pb-3">
         <div className="mb-3">
           <FloatingLabel controlId="floatingInputGrid" label="ToDo Task">
-            <Form.Control type="text" placeholder="Take a Walk" />
+            <Form.Control
+              type="text"
+              placeholder="Take a Walk"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+            />
           </FloatingLabel>
         </div>
         <div className="mb-3">
           <Form.Check
             type="checkbox"
             id="default-checkbox"
-            label="default checkbox"
-            name="urgent"
+            label="Urgent"
+            onChange={() => setUrgent(!urgent)}
+            checked={urgent}
           />
         </div>
+        <Button type="submit" variant="dark">
+          Submit
+        </Button>
       </form>
 
       <div className="">
-        <Card className="mb-2">
-          <Card.Body className="d-flex justify-content-between align-items-center">
-            <Card.Text className="mb-0 text-danger">
-              With supporting text below as a natural lead-in to additional
-              content.
-            </Card.Text>
-            <div>
-              <Button variant="light" className="fs-5">
-                <MdDelete />
-              </Button>{" "}
-              <Button variant="light" className="fs-5">
-                <AiFillEdit />
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
+        {state.map((el) => {
+          return (
+            <Card className="mb-2" key={el.id}>
+              <Card.Body className="d-flex justify-content-between align-items-center">
+                <Card.Text className={`mb-0 ${el.urgent ? "text-danger" : ""}`}>
+                  {el.task}
+                </Card.Text>
+                <div>
+                  <Button
+                    variant="light"
+                    className="fs-5"
+                    onClick={() => deleteTask(el.id)}
+                  >
+                    <MdDelete />
+                  </Button>{" "}
+                  <Button
+                    variant="light"
+                    className="fs-5"
+                    onClick={() => onEdit(el.id, el.task, el.urgent)}
+                  >
+                    <AiFillEdit />
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          );
+        })}{" "}
       </div>
     </div>
   );
